@@ -1,11 +1,11 @@
-﻿=== ANAC XML Bandi di Gara (AVCP) ===
+﻿=== ANAC XML Bandi di Gara ===
 Contributors: Milmor
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2JK36SCXKTE2
+Donate link: https://www.paypal.me/milesimarco
 Tags: anac, anticorruzione, avcp, autorita, vigilanza, lavori, pubblici, amministrazione, trasparente, legge, obblighi, marco, milesi, wpgov, pubblicazione
-Requires at least: 3.7
-Tested up to: 4.1
-Version: 6.1
-Stable tag: 6.1
+Requires at least: 4.4
+Tested up to: 5.2
+Version: 6.7.2
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,53 @@ Puoi trovare la documentazione su [wpgov.it](https://wpgov.it/soluzioni/avcp-xml
 
 == Changelog ==
 > Questa è la lista completa di tutti gli aggiornamenti, test e correzioni. Ogni volta che una nuova versione viene rilasciata assicuratevi di aggiornare il prima possibile per usufruire delle ultime migliorie!
+
+= Versione 6.7.2 =
+* Testato con WP 5.2
+* **Corretto** errore di ordinamento nella tabella (php7)
+* **Corretto** bug di visualizzazione somme liquidate 2019
+
+= Versione 6.7.1 22/01/2019 =
+* Modifiche visualizzazione singola, segnalazione di Francesco C.
+
+= Versione 6.7 07.01.2019 =
+* Le date ora sono in formato 0000-00-00 nel caso non sia settata
+* Testato con WP 5.X
+* Migliorato sistema di generazione file
+* Aggiunto avviso per siti .gov.it nella pagina di validazione
+
+= Versione 6.5 30.06.2017 =
+* Corretto possibile conflitto a livello template single.php
+* Miglioramenti prestazionali
+
+= Versione 6.4.1 14.02.2017 = 
+* Modifiche grafiche alla pagina di validazione
+* Aggiunto link per validazione esterna di file xml [https://anac.softcare.it/Validator](https://anac.softcare.it/Validator) a cura di [SoftCare](http://www.softcare.it/)
+
+
+= Versione 6.4 09.01.2017 =
+* **Rimossa** opzione "Mostra Editor WYSIWYG" (adesso il riquadro del contenuto dei bandi è visibile quando si crea una nuova voce: per nasconderlo utilizzare "impostazioni schermo" in alto a destra)
+* **Migliorate** le prestazioni
+* **Corretti** alcuni warning
+* **Testato** su WP 4.7
+
+= Versione 6.3 23.11.2015 =
+* Nuovo pannello impostazioni wpgov
+* Aggiunto anno 2019/2020
+* Miglioramenti minori
+
+= Versione 6.2.3 - 1.06.2015 =
+* Testato con la versione in sviluppo del cms
+
+= Versione 6.2.2 - 11.03.2015 =
+* Miglioramento stabilità e velocità
+
+= Versione 6.2.1 - 06.03.2015 =
+* Corretto conflitto con Amministrazione Trasparente
+* Miglioramenti performance
+
+= Versione 6.2 - 13.02.2015 =
+* Miglioramento modulo wpgov
 
 = Versione 6.1 - 04.02.2015 =
 * **Aggiunta** funzione javascript per evitare spazi bianchi durante inserimento Codici Fiscali

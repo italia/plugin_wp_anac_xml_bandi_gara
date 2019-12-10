@@ -37,12 +37,12 @@ function creafilexml ($anno) {
     $avcp_contraente = get_post_meta($post->ID, 'avcp_contraente', true);
     $avcp_importo_aggiudicazione = get_post_meta($post->ID, 'avcp_aggiudicazione', true);
 
-    $avcp_data_inizio = date("Y-m-d", strtotime(get_post_meta(get_the_ID(), 'avcp_data_inizio', true)));
-    $avcp_data_ultimazione = date("Y-m-d", strtotime(get_post_meta(get_the_ID(), 'avcp_data_fine', true)));
-    //$avcp_data_inizio = get_post_meta(get_the_ID(), 'avcp_data_inizio', true);
-    //if ($avcp_data_inizio == '') { $avcp_data_inizio = '0000-00-00'; }
-    //$avcp_data_ultimazione = get_post_meta(get_the_ID(), 'avcp_data_fine', true);
-    //if ($avcp_data_ultimazione == '') { $avcp_data_ultimazione = '0000-00-00'; }
+    $d_inizio = get_post_meta(get_the_ID(), 'avcp_data_inizio', true);
+    $d_fine = get_post_meta(get_the_ID(), 'avcp_data_fine', true);
+
+    $avcp_data_inizio = $d_inizio ? date("Y-m-d", strtotime( $d_inizio ) ) : '0000-00-00';
+    $avcp_data_ultimazione = $d_fine ? date("Y-m-d", strtotime( $d_fine ) ) : '0000-00-00';
+
     $XML_FILE .= '<lotto>
     <cig>' . $avcp_cig . '</cig>
     <strutturaProponente>
@@ -115,8 +115,10 @@ function creafilexml ($anno) {
     $somme_liquidate[2016] = get_post_meta($post->ID, 'avcp_s_l_2016', true);
     $somme_liquidate[2017] = get_post_meta($post->ID, 'avcp_s_l_2017', true);
     $somme_liquidate[2018] = get_post_meta($post->ID, 'avcp_s_l_2018', true);
+    $somme_liquidate[2019] = get_post_meta($post->ID, 'avcp_s_l_2019', true);
+    $somme_liquidate[2020] = get_post_meta($post->ID, 'avcp_s_l_2020', true);
 
-    for ($i = 2013; $i < 2019; $i++) {
+    for ($i = 2013; $i < 2021; $i++) {
         if ($somme_liquidate[$i] == '') {
             $somme_liquidate[$i] = '0.00';
         }

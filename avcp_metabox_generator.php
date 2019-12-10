@@ -74,6 +74,8 @@ add_action( 'admin_menu' , 'avcp_remove_metaboxes' );
     $my_meta->addText($prefix.'s_l_2016',array('name'=> 'Somme liquidate <strong>2016</strong>', 'desc' => 'Formato: 12345.12', 'std' => '0.00'));
     $my_meta->addText($prefix.'s_l_2017',array('name'=> 'Somme liquidate <strong>2017</strong>', 'desc' => 'Formato: 12345.12', 'std' => '0.00'));
     $my_meta->addText($prefix.'s_l_2018',array('name'=> 'Somme liquidate <strong>2018</strong>', 'desc' => 'Formato: 12345.12', 'std' => '0.00'));
+    $my_meta->addText($prefix.'s_l_2019',array('name'=> 'Somme liquidate <strong>2019</strong>', 'desc' => 'Formato: 12345.12', 'std' => '0.00'));
+    $my_meta->addText($prefix.'s_l_2020',array('name'=> 'Somme liquidate <strong>2020</strong>', 'desc' => 'Formato: 12345.12', 'std' => '0.00'));
 
     $my_meta->Finish();
 
@@ -106,7 +108,9 @@ function avcp_meta_box_add() {
 
 add_action( 'save_post_avcp', 'avcp_custom_save_post' );
 function avcp_custom_save_post( $post_id ) {
-    update_post_meta($post_id,'avcp_aggiudicatari',$_POST['avcp_aggiudicatari']);
+    if ( isset($_POST['avcp_aggiudicatari']) ) {
+        update_post_meta($post_id,'avcp_aggiudicatari',$_POST['avcp_aggiudicatari']);
+    }
 }
 
 

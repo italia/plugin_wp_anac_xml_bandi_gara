@@ -57,9 +57,15 @@ function avcp_modify_post_table_row( $column_name, $post_id ) {
 
     switch ($column_name) {
         case 'avcp_CIG' :
-            echo $custom_fields['avcp_cig'][0];
+            if ( isset($custom_fields['avcp_cig'][0]) ) {
+                echo $custom_fields['avcp_cig'][0];
+            } else {
+                echo '<center><font style="background-color:red;color:white;padding:2px;border-radius:3px;font-weight:bold;">Nessuno</font></center>';
+            
+            }
             break;
         case 'avcp_AGG' :
+            $checkok = 0;
             $dittepartecipanti = get_the_terms( $post_id, 'ditte' );
             $cats = get_post_meta($post_id,'avcp_aggiudicatari',true);
             if(is_array($dittepartecipanti)) {
@@ -76,7 +82,7 @@ function avcp_modify_post_table_row( $column_name, $post_id ) {
                 }
             }
             if ($checkok == 0) {
-                echo '<center><font style="background-color:red;color:white;padding:2px;border-radius:3px;font-weight:bold;font-family:verdana;">MANCANTI</font></center>';
+                echo '<center><font style="background-color:red;color:white;padding:2px;border-radius:3px;font-weight:bold;">Nessuno</font></center>';
             }
             break;
 

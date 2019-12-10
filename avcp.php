@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: ANAC XML Bandi di Gara (AVCP)
-Plugin URI: http://www.wpgov.it
+Plugin Name: ANAC XML Bandi di Gara
+Plugin URI: https://wordpress.org/plugins/avcp
 Description: Generatore XML per ANAC (ex AVCP) e gestione bandi di gara e contratti (Legge 190/2012 art. 1.32 & D.Lgs 33/2013)
 Author: Marco Milesi
-Version: 6.1
+Version: 6.7.2
 Author URI: http://www.marcomilesi.ml
 */
 
@@ -26,13 +26,6 @@ function register_cpt_avcp() {
         'parent_item_colon' => _x( 'Parent Gara:', 'avcp' ),
         'menu_name' => _x( 'Bandi di Gara', 'avcp' ),
     );
-
-    $get_avcp_enable_editor = get_option('avcp_enable_editor');
-    if ($get_avcp_enable_editor == '1') {
-        $cp_support = array( 'title', 'custom-fields', 'editor', 'revisions', 'post_tag' );
-    } else {
-        $cp_support = array( 'title', 'custom-fields', 'revisions', 'post_tag' );
-    }
 
     $get_avcp_abilita_ruoli = get_option('avcp_abilita_ruoli');
     if ($get_avcp_abilita_ruoli == '1') {
@@ -58,7 +51,7 @@ function register_cpt_avcp() {
         'labels' => $labels,
         'hierarchical' => false,
         'description' => 'Gare AVCP',
-        'supports' => $cp_support,
+        'supports' => array( 'title', 'custom-fields', 'editor', 'revisions', 'post_tag' ),
         'taxonomies' => array( 'ditte' ),
         'public' => true,
         'show_ui' => true,
@@ -261,7 +254,6 @@ function atg_caricamoduli() {
     //Include sistemi di validazione
     require_once(plugin_dir_path(__FILE__) . 'valid_check.php');
     require_once(plugin_dir_path(__FILE__) . 'valid_page.php');
-    require_once(plugin_dir_path(__FILE__) . 'searchTaxonomy/searchTaxonomyGT.php');
     global $typenow;
     if ($typenow == 'avcp') {
         add_filter( 'manage_posts_custom_column', 'avcp_modify_post_table_row', 10, 2 );
@@ -269,12 +261,28 @@ function atg_caricamoduli() {
     }
 }
 
+
+add_action('admin_enqueue_scripts', function( $hook ) {
+
+    global $post;
+    if ( ('post-new.php' == $hook || 'post.php' == $hook) && 'avcp' === $post->post_type ) {
+		wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
+        wp_enqueue_style( 'avcp_style');
+
+        wp_register_script( 'avcp_functions', plugins_url('avcp/includes/avcp_functions.js'));
+        wp_enqueue_script( 'avcp_functions');
+
+        wp_register_script('avcp_searchTaxonomyGT_at_js', plugins_url('includes/searchTaxonomyGT.js', __FILE__));
+        wp_enqueue_script('avcp_searchTaxonomyGT_at_js');
+    }
+});
+
 add_action( 'admin_init', 'AVCP_ADMIN_LOAD');
 function AVCP_ADMIN_LOAD () {
+
     require_once(plugin_dir_path(__FILE__) . 'taxfilteringbackend.php');
 
     require_once(plugin_dir_path(__FILE__) . 'alerts.php');
-    require_once(plugin_dir_path(__FILE__) . 'styledbackend.php');
     require_once(plugin_dir_path(__FILE__) . 'register_setting.php');
     require_once(plugin_dir_path(__FILE__) . 'pannelli/log.php');
     require_once(plugin_dir_path(__FILE__) . 'pannelli/import.php');
@@ -297,7 +305,7 @@ function AVCP_ADMIN_LOAD () {
 }
 
 function crea_anni() {
-    $array_anni = array("2013", "2014", "2015", "2016", "2017", "2018");
+    $array_anni = array("2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
     $array_anni_dim = count($array_anni);
 
     for($x = 0; $x < $array_anni_dim; $x++) {
@@ -309,8 +317,7 @@ function crea_anni() {
     }
 }
 
-add_action('admin_menu', 'avcp_menu');
-function avcp_menu() {
+add_action('admin_menu', function() {
 
     add_submenu_page('edit.php?post_type=avcp', 'Importa', 'Importa', 'manage_options', 'anac_import', 'anac_import_load');
 
@@ -320,9 +327,12 @@ function avcp_menu() {
          $anac_menu_cap = get_option('avcp_dataset_capability');
      }
 
-    add_submenu_page('edit.php?post_type=avcp', 'Dataset XML AVCP', 'Dataset XML AVCP',  $anac_menu_cap, 'avcp_v_dataset', 'avcp_v_dataset_load'); //valid_page.php
+    add_submenu_page('edit.php?post_type=avcp', 'Validazione', 'Validazione',  $anac_menu_cap, 'avcp_v_dataset', 'avcp_v_dataset_load'); //valid_page.php
     add_submenu_page('edit.php?post_type=avcp', 'Log', 'Log',  $anac_menu_cap, 'anac_log', 'anac_log_load'); //pannelli/log.php
-}
+
+    add_submenu_page( 'edit.php?post_type=avcp', 'Impostazioni', 'Impostazioni', 'publish_posts', 'wpgov_avcp', function() { include(plugin_dir_path(__FILE__) . 'settings.php'); } );
+
+});
 
 function avcp_activate() {
     $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
@@ -337,7 +347,5 @@ function avcp_deactivate() {
     unlink(ABSPATH . 'avcp/index.php');
 }
 register_deactivation_hook( __FILE__, 'avcp_deactivate' );
-
-require_once(plugin_dir_path(__FILE__) . 'govconfig/loader_shared.php'); //Caricatore impostazioni wpgov.it
 
 ?>

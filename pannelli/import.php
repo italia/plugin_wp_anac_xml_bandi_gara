@@ -20,7 +20,8 @@ function anac_import_load()
     endif;
 
     if ($down) {
-        echo '<br><br><center><img src="https://wpgov.it/wp-content/uploads/2014/05/wpa_black.png"/><br><h2>Questa funzione è al momento utilizzabile solo in assenza di gare registrate</h2></center>';
+        echo '<br><h2>Questa funzione è al momento utilizzabile solo in assenza di gare registrate.</h2>
+                <br>Se stai cercando una soluzione per visualizzare file xml esterni, abbiamo <a href="https://wordpress.org/plugins/anac-xml-viewer/">un\'altra soluzione</a>!';
         return;
     }
 

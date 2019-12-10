@@ -27,16 +27,18 @@ function avcp_v_dataset_load()
     echo '<form method="post" name="options" target="_self">';
     settings_fields('avcp_options');
     echo '<div id="welcome-panel" style="margin:10px;width:50%;float:left;" class="welcome-panel">
-    <h3><span>Generazione file .xml</span></h3>
-    I dataset generati sono salvati nella cartella <b><a href="' . get_site_url() . '/avcp' . '" target="_blank">' . get_site_url() . '/avcp' . '</a></b>';
+    <h3><span>Generazione XML</span></h3>
+    I file sono salvati nella cartella <b><a href="' . get_site_url() . '/avcp' . '" target="_blank">' . get_site_url() . '/avcp' . '</a></b>';
 
-    echo'<p style="text-align:center;" class="submit"><input type="submit" class="button-primary" name="XMLgenBUTTON" value="Genera dataset" /><br/><hr/><font style="color:red;">Link dei dataset da comunicare ad AVCP:</font>
+    echo'<p style="text-align:center;" class="submit"><input type="submit" class="button-primary" name="XMLgenBUTTON" value="Genera dataset" /><br/><hr/><font style="color:red;">Link dei dataset da comunicare ad AVCP:</font><br>
     <a href="' . get_site_url() . '/avcp/2013.xml' . '" target="_blank">2012+2013</a> &bull;
     <a href="' . get_site_url() . '/avcp/2014.xml' . '" target="_blank">2014</a> &bull;
     <a href="' . get_site_url() . '/avcp/2015.xml' . '" target="_blank">2015</a> &bull;
     <a href="' . get_site_url() . '/avcp/2016.xml' . '" target="_blank">2016</a> &bull;
     <a href="' . get_site_url() . '/avcp/2017.xml' . '" target="_blank">2017</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2018.xml' . '" target="_blank">2018</a>
+    <a href="' . get_site_url() . '/avcp/2018.xml' . '" target="_blank">2018</a> &bull;
+    <a href="' . get_site_url() . '/avcp/2019.xml' . '" target="_blank">2019</a> &bull;
+    <a href="' . get_site_url() . '/avcp/2020.xml' . '" target="_blank">2020</a>
     </p>';
 
     echo '</div>';
@@ -120,9 +122,8 @@ function avcp_v_dataset_load()
         $system_ok = false;
     }
 
-
     if ($system_ok) {
-        echo '<br/><center><code>Nessun problema trovato.</code></center>';
+        echo '<hr><center>Nessun problema trovato.</center><hr>';
     } else {
         echo '
         <style>
@@ -135,8 +136,16 @@ function avcp_v_dataset_load()
     echo '</div>
     <div class="clear"></div>';
 
-    echo'<div class="updated"><p>Su questa pagina puoi controllare eventuali problemi con i dataset richiesti da ANAC (ex.AVCP)<br/>
-    Questo test non garantisce, e anzi <b>ignora</b>, la completezza e veridicita\' dei dati inseriti o omessi</p></div>';
+    echo'<div class="notice">
+    <p>La funzione <b>non verifica</b> la completezza e veridicita\' dei dati inseriti o omessi</p>
+    <p>Puoi controllare online i dataset con un <a href="https://anac.softcare.it/Validator" target="_blank"><b>validatore esterno</b></a></p>
+    </div>';
+
+    echo'<div class="notice" style="background:yellow;">
+    <h2>Dominio .GOV.IT</h2>
+    <p>Se il sito istituzionale è attivo su dominio .GOV.IT: a seguito della dismissione del dominio, i puntamenti ai file comunicati ad ANAC non saranno più validi.
+    <br>Maggiori informazioni su: <a href="https://www.wpgov.it/2019/trasferimento-edu-it/">https://www.wpgov.it/2019/trasferimento-edu-it</a></p>
+    </div>';
 
     echo '<div class="wpgov-box">';
     check_annoimpostato();
@@ -154,8 +163,7 @@ function avcp_v_dataset_load()
             check_software($term->name);
         }
     }
-    echo '</div><br/>
-    Puoi controllare online i dataset anche con il validatore gratuito offerto da <b><a href="https://avcp.centrosistema.it/validator">CentroSistema e SoftCare</a></b>';
+    echo '</div>';
 
 }
 
