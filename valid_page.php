@@ -148,13 +148,13 @@ function avcp_v_dataset_load()
     <p>La funzione <b>non verifica</b> la completezza e veridicita\' dei dati inseriti o omessi</p>
     <p>Puoi controllare online i dataset con un <a href="https://anac.softcare.it/Validator" target="_blank"><b>validatore esterno</b></a></p>
     </div>';
-
+/*
     echo'<div class="notice" style="background:yellow;">
     <h2>Dominio .GOV.IT</h2>
     <p>Se il sito istituzionale è attivo su dominio .GOV.IT: a seguito della dismissione del dominio, i puntamenti ai file comunicati ad ANAC non saranno più validi.
     <br>Maggiori informazioni su: <a href="https://www.wpgov.it/2019/trasferimento-edu-it/">https://www.wpgov.it/2019/trasferimento-edu-it</a></p>
     </div>';
-
+*/
     echo '<div class="wpgov-box">';
     check_annoimpostato();
     $terms = get_terms( 'annirif', array('hide_empty' => 0) );
