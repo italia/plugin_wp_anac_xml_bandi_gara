@@ -342,10 +342,8 @@ function avcp_activate() {
         mkdir(dirname($dstfile), 0755, true);
         copy($srcfile, $dstfile);
         chmod($dstfile, 0755);
-        flush_rewrite_rules();
     }
-
-
+    flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'avcp_activate' );
 
