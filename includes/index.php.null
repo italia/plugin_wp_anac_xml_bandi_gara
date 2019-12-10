@@ -94,11 +94,18 @@ while (false !== ($file = readdir($handle)))
 closedir($handle);
 natcasesort($files);
 
+  if(is_multisite()){
+            $siteid =  get_current_blog_id();
+            $template_url = 'wp-content/uploads/sites/'.$siteid.'/avcp/';
+        }else{
+            $template_url = 'wp-content/uploads/avcp/';
+        }
+
 foreach ($files as $file) 
 {
     echo "<div class=\"media_block_filebox\">";
     echo "    <a href=\"$file\"><img style=\"float: left;\" src=\"" . $url . "wp-content/plugins/avcp/includes/xmlicon.png\"></a>";
-    echo "        <div class=\"media_block_file\"><h2><a href=\"$file\">" . basename($file, ".xml") ."</a></h2></div>\n";
+    echo "        <div class=\"media_block_file\"><h2><a href=\"$template_url."".$file\">" . basename($file, ".xml") ."</a></h2></div>\n";
     echo "        <div class=\"media_block_date\">" . format_size($file) . "<br>" . ucwords(strftime("%d %B %Y", filemtime($file))) . "</div>\n";
     echo "</div>";
 }
