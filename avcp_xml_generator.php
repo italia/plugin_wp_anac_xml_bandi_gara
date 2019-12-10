@@ -14,6 +14,8 @@ function creafilexml ($anno) {
     endwhile; else:
     endif;
 
+    $upload_dir   = wp_upload_dir();
+
     $XML_FILE .= '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
     $XML_FILE .= '
     <legge190:pubblicazione xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0" xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd">
@@ -24,7 +26,7 @@ function creafilexml ($anno) {
     <entePubblicatore>' . $avcp_denominazione_ente . '</entePubblicatore>
     <dataUltimoAggiornamentoDataset>' . $XML_data_aggiornamento . '</dataUltimoAggiornamentoDataset>
     <annoRiferimento>' . $XML_anno_riferimento . '</annoRiferimento>
-    <urlFile>' . site_url() . '/avcp/' . $anno . '.xml' . '</urlFile>
+    <urlFile>' . $upload_dir['baseurl'] . '/avcp/' . $anno . '.xml' . '</urlFile>
     <licenza>IODL</licenza>
     </metadata>
     <data>';
@@ -138,8 +140,10 @@ function creafilexml ($anno) {
     $XML_FILE .= '</data>
     </legge190:pubblicazione>';
 
+    $upload_dir   = wp_upload_dir();
+
     // Open or create a file (this does it in the same dir as the script)
-    $XML_PATH = ABSPATH . 'avcp/' . $anno . '.xml';
+    $XML_PATH = $upload_dir['basedir'] . '/avcp/' . $anno . '.xml';
     $my_file = fopen($XML_PATH, "w");
 
     // Write the string's contents into that file

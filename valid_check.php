@@ -5,8 +5,10 @@ function avcp_valid_check() {
 	
 	$terms = get_terms( 'annirif', array('hide_empty' => 0) );
 	foreach ( $terms as $term ) {
-		$xml = new DOMDocument(); 
-		$xml->load(ABSPATH . 'avcp/' . $term->name. '.xml');
+		$xml = new DOMDocument();
+        $upload_dir   = wp_upload_dir();
+
+        $xml->load($upload_dir['basedir'] . '/avcp/' . $term->name. '.xml');
 		if (!$xml->schemaValidate(ABSPATH . 'wp-content/plugins/avcp/includes/datasetAppaltiL190.xsd')) {
 			$errori .= $term->name . ' ';
 		}

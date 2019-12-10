@@ -22,31 +22,35 @@ function avcp_v_dataset_load()
     echo '<div class="wrap">';
     screen_icon();
     echo '<h2><strong>Validazione dataset</strong> XML<br><small>In questa pagina puoi verificare lo stato dei dataset generati</small></h2>';
+    $upload_dir   = wp_upload_dir();
 
     // SYSTEM CHECK
     echo '<form method="post" name="options" target="_self">';
     settings_fields('avcp_options');
     echo '<div id="welcome-panel" style="margin:10px;width:50%;float:left;" class="welcome-panel">
     <h3><span>Generazione XML</span></h3>
-    I file sono salvati nella cartella <b><a href="' . get_site_url() . '/avcp' . '" target="_blank">' . get_site_url() . '/avcp' . '</a></b>';
+    I file sono salvati nella cartella <b><a href="' . $upload_dir['baseurl'] . '/avcp' . '" target="_blank">' . $upload_dir['baseurl'] . '/avcp' . '</a></b>';
 
     echo'<p style="text-align:center;" class="submit"><input type="submit" class="button-primary" name="XMLgenBUTTON" value="Genera dataset" /><br/><hr/><font style="color:red;">Link dei dataset da comunicare ad AVCP:</font><br>
-    <a href="' . get_site_url() . '/avcp/2013.xml' . '" target="_blank">2012+2013</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2014.xml' . '" target="_blank">2014</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2015.xml' . '" target="_blank">2015</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2016.xml' . '" target="_blank">2016</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2017.xml' . '" target="_blank">2017</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2018.xml' . '" target="_blank">2018</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2019.xml' . '" target="_blank">2019</a> &bull;
-    <a href="' . get_site_url() . '/avcp/2020.xml' . '" target="_blank">2020</a>
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2013.xml' . '" target="_blank">2012+2013</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2014.xml' . '" target="_blank">2014</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2015.xml' . '" target="_blank">2015</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2016.xml' . '" target="_blank">2016</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2017.xml' . '" target="_blank">2017</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2018.xml' . '" target="_blank">2018</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2019.xml' . '" target="_blank">2019</a> &bull;
+    <a href="' . $upload_dir['baseurl'] . '/avcp/2020.xml' . '" target="_blank">2020</a>
     </p>';
 
     echo '</div>';
     echo '
     <div id="alert" style="margin:10px;width:40%;float:left;" class="welcome-panel">
         <h3><span>Compatibilità Server</span></h3>';
+    $upload_dir   = wp_upload_dir();
 
-    $dir = ABSPATH . 'avcp';
+    $dir = $upload_dir['basedir'] . '/avcp';
+
+
     $file = $dir . '/index.php';
     echo '<br/>';
     $system_ok = true;
@@ -72,8 +76,9 @@ function avcp_v_dataset_load()
         $system_ok = false;
     }
     echo '<br/>';
+    $upload_dir   = wp_upload_dir();
 
-    $urlcheck = get_site_url() . '/avcp/index.php';
+    $urlcheck =  $upload_dir['baseurl'] . '/avcp/index.php';
 
     $agent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; pt-pt) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27";
 
@@ -152,7 +157,10 @@ function avcp_v_dataset_load()
     $terms = get_terms( 'annirif', array('hide_empty' => 0) );
     foreach ( $terms as $term ) {
         $xml = new DOMDocument();
-        $xml->load(ABSPATH  . '/avcp/' . $term->name. '.xml');
+
+        $upload_dir   = wp_upload_dir();
+
+        $xml->load($upload_dir['basedir']  . '/avcp/' . $term->name. '.xml');
         echo '<hr/><h3 style="margin-bottom: 0px;">Dataset Anno ' . $term->name . '</h3><small style="float:right;"><a target="_blank" href="' . get_site_url()  . '/avcp/' . $term->name. '.xml"><code>' . get_site_url()  . '/avcp/' . $term->name. '.xml</code></a></small>';
         if (!$xml->schemaValidate(ABSPATH  . '/wp-content/plugins/avcp/includes/datasetAppaltiL190.xsd')) {
             libxml_display_errors();

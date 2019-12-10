@@ -5,7 +5,7 @@ add_filter('the_content', function($content) {
 
     global $wp_query;
     $jobID = $wp_query->post->ID;
-
+    $prev = "";
     $prev .= '<br/>';
     $prev .= '<table>';
     $prev .= '<tr><td><acronym title="Codice Identificativo Gara">CIG:</acronym></td><td>' . get_post_meta(get_the_ID(), 'avcp_cig', true) . '</td></tr>';

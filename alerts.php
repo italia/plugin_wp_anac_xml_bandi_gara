@@ -52,7 +52,10 @@ function avcp_admin_messages() {
             $t_id = $get_term->term_id;
             wp_delete_term( $t_id, 'annirif' );
             add_user_meta($user_id, 'avcp_upgrade_3', 'true', true);
-            unlink(ABSPATH . 'avcp/2012.xml');
+
+            $upload_dir   = wp_upload_dir();
+
+            unlink($upload_dir['basedir'] . '/avcp/2012.xml');
         }
 
         if ( isset($_GET['avcp_upgrade_2date_ignore']) && '0' == $_GET['avcp_upgrade_2date_ignore'] ) {
