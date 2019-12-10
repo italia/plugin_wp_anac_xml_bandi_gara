@@ -1,16 +1,16 @@
 ﻿=== ANAC XML Bandi di Gara ===
-Contributors: Milmor
-Donate link: https://www.paypal.me/milesimarco
+Contributors: Milmor, webgrafia
 Tags: anac, anticorruzione, avcp, autorita, vigilanza, lavori, pubblici, amministrazione, trasparente, legge, obblighi, marco, milesi, wpgov, pubblicazione
 Requires at least: 4.4
 Tested up to: 5.2
-Version: 6.7.2
+Version: 6.7.2.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Software per la gestione dei Bandi di Gara e generazione automatica del dataset XML per ANAC (ex AVCP -Legge 190/2012 Art 1.32).
 
+FORKED BY Marco Buttarini
 
 == Description ==
 
@@ -73,6 +73,10 @@ Puoi trovare la documentazione su [wpgov.it](https://wpgov.it/soluzioni/avcp-xml
 
 == Changelog ==
 > Questa è la lista completa di tutti gli aggiornamenti, test e correzioni. Ogni volta che una nuova versione viene rilasciata assicuratevi di aggiornare il prima possibile per usufruire delle ultime migliorie!
+
+
+= Versione 6.7.1 =
+* Fix per ambienti multisite
 
 = Versione 6.7.2 =
 * Testato con WP 5.2
