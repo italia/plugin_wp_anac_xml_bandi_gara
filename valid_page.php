@@ -81,7 +81,7 @@ function avcp_v_dataset_load()
     echo '<br/>';
     $upload_dir   = wp_upload_dir();
 
-    $urlcheck =  $upload_dir['baseurl'] . '/avcp/index.php';
+    $urlcheck =  home_url() . '/avcp/index.php';
 
     $agent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; pt-pt) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27";
 
