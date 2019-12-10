@@ -357,17 +357,22 @@ function avcp_deactivate() {
 }
 register_deactivation_hook( __FILE__, 'avcp_deactivate' );
 
-// rewrite per /avcp
-function avcp_rewrite_rule() {
-    if(is_multisite()){
-        $siteid =  get_current_blog_id();
-        add_rewrite_rule('anac-xml/?','wp-content/uploads/sites/'.$siteid.'/avcp/index.php','top');
-    }else{
-        add_rewrite_rule('anac-xml/?','wp-content/uploads/avcp/index.php','top');
-    }
-}
-add_action('init', 'avcp_rewrite_rule', 10, 0);
 
+
+// hook per utilizzare il template archive avcp come path di erogazione xml
+add_filter('template_include', 'avcp_archive_template');
+function avcp_archive_template( $template ) {
+    if ( is_post_type_archive('avcp') ) {
+
+        if(is_multisite()){
+            $siteid =  get_current_blog_id();
+            $template = 'wp-content/uploads/sites/'.$siteid.'/avcp/index.php';
+        }else{
+            $template = 'wp-content/uploads/avcp/index.php';
+        }
+    }
+    return $template;
+}
 
 
 ?>
