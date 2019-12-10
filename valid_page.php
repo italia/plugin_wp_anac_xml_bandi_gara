@@ -162,9 +162,16 @@ function avcp_v_dataset_load()
         $xml = new DOMDocument();
 
         $upload_dir   = wp_upload_dir();
+        if(is_multisite()){
+            $siteid =  get_current_blog_id();
+            $path = home_url('wp-content/uploads/sites/'.$siteid.'/avcp/');
+        }else{
+            $path = home_url('wp-content/uploads/avcp/');
+        }
+
 
         $xml->load($upload_dir['basedir']  . '/avcp/' . $term->name. '.xml');
-        echo '<hr/><h3 style="margin-bottom: 0px;">Dataset Anno ' . $term->name . '</h3><small style="float:right;"><a target="_blank" href="' . get_site_url()  . '/avcp/' . $term->name. '.xml"><code>' . get_site_url()  . '/avcp/' . $term->name. '.xml</code></a></small>';
+        echo '<hr/><h3 style="margin-bottom: 0px;">Dataset Anno ' . $term->name . '</h3><small style="float:right;"><a target="_blank" href="' . $path . $term->name. '.xml"><code>' . $path . $term->name. '.xml</code></a></small>';
         if (!$xml->schemaValidate(ABSPATH  . '/wp-content/plugins/avcp/includes/datasetAppaltiL190.xsd')) {
             libxml_display_errors();
             echo '<br/><font style="background-color:red;color:white;padding:2px;border-radius:3px;font-weight:bold;f">Errore validazione ANAC su tracciato XSD: risolvere i problemi segnalati e rigenerare i dataset!</font><br/>';
