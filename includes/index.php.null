@@ -96,9 +96,9 @@ natcasesort($files);
 
   if(is_multisite()){
             $siteid =  get_current_blog_id();
-            $template_url = 'wp-content/uploads/sites/'.$siteid.'/avcp/';
+            $template_url = home_url('wp-content/uploads/sites/'.$siteid.'/avcp/');
         }else{
-            $template_url = 'wp-content/uploads/avcp/';
+            $template_url = home_url('wp-content/uploads/avcp/');
         }
 
 foreach ($files as $file) 
