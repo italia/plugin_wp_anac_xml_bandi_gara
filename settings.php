@@ -41,6 +41,9 @@
         }
     }
 
+    // forzo la generazione della cartella, se no esiste
+    avcp_activate();
+
     //Qui inizia la sezione delle impostazioni
 
     echo '<center><h3>ANAC XML Bandi di Gara</h3></center>

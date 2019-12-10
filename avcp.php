@@ -337,13 +337,15 @@ add_action('admin_menu', function() {
 function avcp_activate() {
     $upload_dir   = wp_upload_dir();
 
-    $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
-    $dstfile= $upload_dir['basedir'] . '/avcp/index.php';
-    mkdir(dirname($dstfile), 0755, true);
-    copy($srcfile, $dstfile);
-    chmod($dstfile, 0755);
+    if(!file_exists($upload_dir['basedir'] . '/avcp/index.php')){
+        $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
+        $dstfile= $upload_dir['basedir'] . '/avcp/index.php';
+        mkdir(dirname($dstfile), 0755, true);
+        copy($srcfile, $dstfile);
+        chmod($dstfile, 0755);
+        flush_rewrite_rules();
+    }
 
-    flush_rewrite_rules();
 
 }
 register_activation_hook( __FILE__, 'avcp_activate' );
@@ -357,14 +359,12 @@ register_deactivation_hook( __FILE__, 'avcp_deactivate' );
 
 // rewrite per /avcp
 function avcp_rewrite_rule() {
-    $upload_dir   = wp_upload_dir();
     if(is_multisite()){
         $siteid =  get_current_blog_id();
         add_rewrite_rule('anac-xml/?','wp-content/uploads/sites/'.$siteid.'/avcp/index.php','top');
     }else{
         add_rewrite_rule('anac-xml/?','wp-content/uploads/avcp/index.php','top');
     }
-
 }
 add_action('init', 'avcp_rewrite_rule', 10, 0);
 
