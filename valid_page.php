@@ -32,7 +32,7 @@ function avcp_v_dataset_load()
     settings_fields('avcp_options');
     echo '<div id="welcome-panel" style="margin:10px;width:50%;float:left;" class="welcome-panel">
     <h3><span>Generazione XML</span></h3>
-    I file sono salvati nella cartella <b><a href="' . home_url("avcp") . '" target="_blank">' . home_url("avcp") . '</a></b>';
+    I file sono salvati nella cartella <b><a href="' . home_url("avcp") . '/" target="_blank">' . home_url("avcp") . '/</a></b>';
 
     echo'<p style="text-align:center;" class="submit"><input type="submit" class="button-primary" name="XMLgenBUTTON" value="Genera dataset" /><br/><hr/><font style="color:red;">Link dei dataset da comunicare ad AVCP:</font><br>
     <a href="' . $upload_dir['baseurl'] . '/avcp/2013.xml' . '" target="_blank">2012+2013</a> &bull;
