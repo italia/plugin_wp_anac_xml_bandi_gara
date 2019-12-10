@@ -2,6 +2,9 @@
 
 function avcp_v_dataset_load()
 {
+
+    avcp_activate();
+
     if(isset($_POST['XMLgenBUTTON'])) {
             $terms = get_terms( 'annirif', array('hide_empty' => 0) );
             $count = count($terms);
