@@ -32,16 +32,16 @@ function register_cpt_avcp() {
         $avcp_capability_type = 'gare_avcp';
         $avcp_map_meta_cap_var = 'true';
         $avcp_capabilities_array = array(
-                'publish_posts' => 'pubblicare_gara_avcp',
-                'edit_posts' => 'modificare_propri_gara_avcp',
-                'edit_others_posts' => 'modificare_altri_gara_avcp',
-                'delete_posts' => 'eliminare_propri_gara_avcp',
-                'delete_others_posts' => 'modificare_altri_gara_avcp',
-                'read_private_posts' => 'read_private_avcp',
-                'edit_post' => 'modificare_gara_avcp',
-                'delete_post' => 'eliminare_gara_avcp',
-                'read_post' => 'leggere_gara_avcp',
-                );
+            'publish_posts' => 'pubblicare_gara_avcp',
+            'edit_posts' => 'modificare_propri_gara_avcp',
+            'edit_others_posts' => 'modificare_altri_gara_avcp',
+            'delete_posts' => 'eliminare_propri_gara_avcp',
+            'delete_others_posts' => 'modificare_altri_gara_avcp',
+            'read_private_posts' => 'read_private_avcp',
+            'edit_post' => 'modificare_gara_avcp',
+            'delete_post' => 'eliminare_gara_avcp',
+            'read_post' => 'leggere_gara_avcp',
+        );
     } else {
         $avcp_capability_type = 'post';
         $avcp_map_meta_cap_var = 'false';
@@ -266,7 +266,7 @@ add_action('admin_enqueue_scripts', function( $hook ) {
 
     global $post;
     if ( ('post-new.php' == $hook || 'post.php' == $hook) && 'avcp' === $post->post_type ) {
-		wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
+        wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
         wp_enqueue_style( 'avcp_style');
 
         wp_register_script( 'avcp_functions', plugins_url('avcp/includes/avcp_functions.js'));
@@ -321,11 +321,11 @@ add_action('admin_menu', function() {
 
     add_submenu_page('edit.php?post_type=avcp', 'Importa', 'Importa', 'manage_options', 'anac_import', 'anac_import_load');
 
-     if (!get_option('avcp_dataset_capability')) {
-         $anac_menu_cap = 'manage_options';
+    if (!get_option('avcp_dataset_capability')) {
+        $anac_menu_cap = 'manage_options';
     } else {
-         $anac_menu_cap = get_option('avcp_dataset_capability');
-     }
+        $anac_menu_cap = get_option('avcp_dataset_capability');
+    }
 
     add_submenu_page('edit.php?post_type=avcp', 'Validazione', 'Validazione',  $anac_menu_cap, 'avcp_v_dataset', 'avcp_v_dataset_load'); //valid_page.php
     add_submenu_page('edit.php?post_type=avcp', 'Log', 'Log',  $anac_menu_cap, 'anac_log', 'anac_log_load'); //pannelli/log.php
@@ -342,6 +342,9 @@ function avcp_activate() {
     mkdir(dirname($dstfile), 0755, true);
     copy($srcfile, $dstfile);
     chmod($dstfile, 0755);
+
+    flush_rewrite_rules();
+
 }
 register_activation_hook( __FILE__, 'avcp_activate' );
 
@@ -351,5 +354,20 @@ function avcp_deactivate() {
     unlink($upload_dir['basedir'] . '/avcp/index.php');
 }
 register_deactivation_hook( __FILE__, 'avcp_deactivate' );
+
+// rewrite per /avcp
+function avcp_rewrite_rule() {
+    $upload_dir   = wp_upload_dir();
+    if(is_multisite()){
+        $siteid =  get_current_blog_id();
+        add_rewrite_rule('anac-xml/?','wp-content/uploads/sites/'.$siteid.'/avcp/index.php','top');
+    }else{
+        add_rewrite_rule('anac-xml/?','wp-content/uploads/avcp/index.php','top');
+    }
+
+}
+add_action('init', 'avcp_rewrite_rule', 10, 0);
+
+
 
 ?>
