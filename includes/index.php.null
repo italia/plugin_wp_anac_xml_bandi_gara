@@ -112,11 +112,6 @@ foreach ($files as $file)
 echo "<div class='clear'></div>"; 
 ?>
     </div>
-    <center>
-    <a href="https://wpgov.it"  target="_blank" title="WP Gov"><small>powered by</small><br><img src="<?php echo $url; ?>wp-content/plugins/avcp/includes/wpgov_icon.png"></a><br>
 
-    <small style="display: none;">Software pubblicazione bandi di gara e generazione dataset ANAC/AVCP realizzato da <a href="http://www.marcomilesi.ml" target="_blank">Marco Milesi</a></small>
-
-    </center>
 </body>
 </html>
