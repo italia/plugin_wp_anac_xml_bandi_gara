@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: ANAC XML Bandi di Gara
+Plugin Name: ANAC XML Bandi di Gara FORKED FOR MULTISITE
 Plugin URI: https://wordpress.org/plugins/avcp
 Description: Generatore XML per ANAC (ex AVCP) e gestione bandi di gara e contratti (Legge 190/2012 art. 1.32 & D.Lgs 33/2013)
-Author: Marco Milesi
+Author: Marco Milesi forked for multisite by Marco Buttarini
 Version: 7.1.2
 Author URI: https://www.marcomilesi.com
 */
