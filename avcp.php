@@ -1,10 +1,11 @@
 <?php
 /*
-Plugin Name: ANAC XML Bandi di Gara RELOADED
-Plugin URI: https://github.com/webgrafia/avcp
+Plugin Name: ANAC XML Bandi di Gara
+Plugin URI: https://wordpress.org/plugins/avcp
 Description: Generatore XML per ANAC (ex AVCP) e gestione bandi di gara e contratti (Legge 190/2012 art. 1.32 & D.Lgs 33/2013)
-Author: Marco Milesi FORKED BY Marco Buttarini for multisite - orig version: 6.7.2
-Version: 10.0
+Author: Marco Milesi
+Version: 7.1.2
+Author URI: https://www.marcomilesi.com
 */
 
 add_action( 'init', 'register_cpt_avcp' );
@@ -12,7 +13,7 @@ add_action( 'init', 'register_cpt_avcp' );
 function register_cpt_avcp() {
 
     $labels = array(
-        'name' => _x( 'Bandi di Gara', 'avcp' ),
+        'name' => 'Bandi di gara',
         'singular_name' => _x( 'Gara', 'avcp' ),
         'add_new' => _x( 'Nuova voce', 'avcp' ),
         'add_new_item' => _x( 'Nuova Gara', 'avcp' ),
@@ -23,7 +24,7 @@ function register_cpt_avcp() {
         'not_found' => _x( 'Nessuna voce trovata', 'avcp' ),
         'not_found_in_trash' => _x( 'Nessuna voce trovata', 'avcp' ),
         'parent_item_colon' => _x( 'Parent Gara:', 'avcp' ),
-        'menu_name' => _x( 'Bandi di Gara', 'avcp' ),
+        'menu_name' => 'Bandi'
     );
 
     $get_avcp_abilita_ruoli = get_option('avcp_abilita_ruoli');
@@ -31,16 +32,16 @@ function register_cpt_avcp() {
         $avcp_capability_type = 'gare_avcp';
         $avcp_map_meta_cap_var = 'true';
         $avcp_capabilities_array = array(
-            'publish_posts' => 'pubblicare_gara_avcp',
-            'edit_posts' => 'modificare_propri_gara_avcp',
-            'edit_others_posts' => 'modificare_altri_gara_avcp',
-            'delete_posts' => 'eliminare_propri_gara_avcp',
-            'delete_others_posts' => 'modificare_altri_gara_avcp',
-            'read_private_posts' => 'read_private_avcp',
-            'edit_post' => 'modificare_gara_avcp',
-            'delete_post' => 'eliminare_gara_avcp',
-            'read_post' => 'leggere_gara_avcp',
-        );
+                'publish_posts' => 'pubblicare_gara_avcp',
+                'edit_posts' => 'modificare_propri_gara_avcp',
+                'edit_others_posts' => 'modificare_altri_gara_avcp',
+                'delete_posts' => 'eliminare_propri_gara_avcp',
+                'delete_others_posts' => 'modificare_altri_gara_avcp',
+                'read_private_posts' => 'read_private_avcp',
+                'edit_post' => 'modificare_gara_avcp',
+                'delete_post' => 'eliminare_gara_avcp',
+                'read_post' => 'leggere_gara_avcp',
+                );
     } else {
         $avcp_capability_type = 'post';
         $avcp_map_meta_cap_var = 'false';
@@ -209,7 +210,7 @@ function avcp_default_title($title)
 {
     $screen = get_current_screen();
     if ('avcp' == $screen->post_type) {
-        $title = 'Inserire Oggetto della Gara';
+        $title = 'Oggetto della Gara';
     }
     return $title;
 }
@@ -238,7 +239,6 @@ function anac_add_log($azione, $errore) {
 add_action( 'init', 'atg_caricamoduli' );
 function atg_caricamoduli() {
     require_once(plugin_dir_path(__FILE__) . 'avcp_create_taxonomy.php');
-    require_once(plugin_dir_path(__FILE__) . 'meta-box-class/metabox.php');
     require_once(plugin_dir_path(__FILE__) . 'tax-meta-class/Tax-meta-class.php');
     require_once(plugin_dir_path(__FILE__) . 'avcp_taxonomy_fields.php');
     require_once(plugin_dir_path(__FILE__) . 'avcp_metabox_generator.php');
@@ -251,7 +251,6 @@ function atg_caricamoduli() {
     require_once(plugin_dir_path(__FILE__) . 'getsommeliquidate.php');
 
     //Include sistemi di validazione
-    require_once(plugin_dir_path(__FILE__) . 'valid_check.php');
     require_once(plugin_dir_path(__FILE__) . 'valid_page.php');
     global $typenow;
     if ($typenow == 'avcp') {
@@ -265,11 +264,11 @@ add_action('admin_enqueue_scripts', function( $hook ) {
 
     global $post;
     if ( ('post-new.php' == $hook || 'post.php' == $hook) && 'avcp' === $post->post_type ) {
-        wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
+		wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
         wp_enqueue_style( 'avcp_style');
 
-        wp_register_script( 'avcp_functions', plugins_url('avcp/includes/avcp_functions.js'));
-        wp_enqueue_script( 'avcp_functions');
+        wp_enqueue_script( 'avcp_functions', plugins_url('avcp/includes/avcp_functions.js'), array( 'jquery' ) );
+
 
         wp_register_script('avcp_searchTaxonomyGT_at_js', plugins_url('includes/searchTaxonomyGT.js', __FILE__));
         wp_enqueue_script('avcp_searchTaxonomyGT_at_js');
@@ -283,7 +282,6 @@ function AVCP_ADMIN_LOAD () {
 
     require_once(plugin_dir_path(__FILE__) . 'alerts.php');
     require_once(plugin_dir_path(__FILE__) . 'register_setting.php');
-    require_once(plugin_dir_path(__FILE__) . 'pannelli/log.php');
     require_once(plugin_dir_path(__FILE__) . 'pannelli/import.php');
 
 
@@ -295,23 +293,24 @@ function AVCP_ADMIN_LOAD () {
     if ($versione_attuale_anac == '') {
         update_option( 'avcp_version_number', $nuova_versione_anac );
         crea_anni();
+        avcp_activate();
     } else if (version_compare($versione_attuale_anac, $nuova_versione_anac, '<') == '1') {
         crea_anni();
+        avcp_activate();
         require_once(plugin_dir_path(__FILE__) . 'update.php');
         update_option( 'avcp_version_number', $nuova_versione_anac );
         anac_add_log('Aggiornato plugin ' . $nuova_versione_anac, 0);
     }
+    delete_option('avcp_invalid');
 }
 
 function crea_anni() {
-    $array_anni = array("2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020");
-    $array_anni_dim = count($array_anni);
 
-    for($x = 0; $x < $array_anni_dim; $x++) {
-        $termcheck = term_exists($array_anni[$x], 'annirif');
+    for( $x = 2013; $x <= 2025; $x++) {
+        $termcheck = term_exists( $x, 'annirif');
         if ($termcheck == 0 || $termcheck == null) {
-            wp_insert_term($array_anni[$x], 'annirif');
-            anac_add_log('Aggiunto anno di riferimento <strong>'.$array_anni[$x].'</strong>', 0);
+            wp_insert_term( $x, 'annirif');
+            anac_add_log('Aggiunto anno di riferimento <strong>'.$x.'</strong>', 0);
         }
     }
 }
@@ -320,56 +319,103 @@ add_action('admin_menu', function() {
 
     add_submenu_page('edit.php?post_type=avcp', 'Importa', 'Importa', 'manage_options', 'anac_import', 'anac_import_load');
 
-    if (!get_option('avcp_dataset_capability')) {
-        $anac_menu_cap = 'manage_options';
+     if (!get_option('avcp_dataset_capability')) {
+         $anac_menu_cap = 'manage_options';
     } else {
-        $anac_menu_cap = get_option('avcp_dataset_capability');
-    }
+         $anac_menu_cap = get_option('avcp_dataset_capability');
+     }
 
     add_submenu_page('edit.php?post_type=avcp', 'Validazione', 'Validazione',  $anac_menu_cap, 'avcp_v_dataset', 'avcp_v_dataset_load'); //valid_page.php
-    add_submenu_page('edit.php?post_type=avcp', 'Log', 'Log',  $anac_menu_cap, 'anac_log', 'anac_log_load'); //pannelli/log.php
 
     add_submenu_page( 'edit.php?post_type=avcp', 'Impostazioni', 'Impostazioni', 'publish_posts', 'wpgov_avcp', function() { include(plugin_dir_path(__FILE__) . 'settings.php'); } );
 
 });
 
+//avcp_activate();
 function avcp_activate() {
-    $upload_dir   = wp_upload_dir();
-
-    if(!file_exists($upload_dir['basedir'] . '/avcp/index.php')){
-        $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
-        $dstfile= $upload_dir['basedir'] . '/avcp/index.php';
-        mkdir(dirname($dstfile), 0755, true);
-        copy($srcfile, $dstfile);
-        chmod($dstfile, 0755);
-    }
-    flush_rewrite_rules();
+    $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
+    $dstfile= avcp_get_basexmlpath() . 'index.php';
+    mkdir(dirname($dstfile), 0755, true);
+    copy($srcfile, $dstfile);
+    chmod($dstfile, 0755);
 }
-register_activation_hook( __FILE__, 'avcp_activate' );
 
 function avcp_deactivate() {
-    $upload_dir   = wp_upload_dir();
-
-    unlink($upload_dir['basedir'] . '/avcp/index.php');
+    unlink(ABSPATH . 'avcp/index.php');
 }
 register_deactivation_hook( __FILE__, 'avcp_deactivate' );
 
 
-
-// hook per utilizzare il template archive avcp come path di erogazione xml
-add_filter('template_include', 'avcp_archive_template');
-function avcp_archive_template( $template ) {
-    if ( is_post_type_archive('avcp') ) {
-
-        if(is_multisite()){
-            $siteid =  get_current_blog_id();
-            $template = 'wp-content/uploads/sites/'.$siteid.'/avcp/index.php';
-        }else{
-            $template = 'wp-content/uploads/avcp/index.php';
+function avcp_get_contraente($input) {
+    $tipi_contraente = array(
+        array('01','01-PROCEDURA APERTA'),
+        array('02','02-PROCEDURA RISTRETTA'),
+        array('03','03-PROCEDURA NEGOZIATA PREVIA PUBBLICAZIONE'),
+        array('04','04-PROCEDURA NEGOZIATA SENZA PREVIA PUBBLICAZIONE'),
+        array('05','05-DIALOGO COMPETITIVO'),
+        array('06','06-PROCEDURA NEGOZIATA SENZA PREVIA INDIZIONE DI GARA (SETTORI SPECIALI)'),
+        array('07','07-SISTEMA DINAMICO DI ACQUISIZIONE'),
+        array('08','08-AFFIDAMENTO IN ECONOMIA - COTTIMO FIDUCIARIO'),
+        array('14','14-PROCEDURA SELETTIVA EX ART 238 C.7, D.LGS. 163/2006'),
+        array('17','17-AFFIDAMENTO DIRETTO EX ART. 5 DELLA LEGGE 381/91'),
+        array('21','21-PROCEDURA RISTRETTA DERIVANTE DA AVVISI CON CUI SI INDICE LA GARA'),
+        array('22','22-PROCEDURA NEGOZIATA CON PREVIA INDIZIONE DI GARA (SETTORI SPECIALI)'),
+        array('23','23-AFFIDAMENTO DIRETTO'),
+        array('24','24-AFFIDAMENTO DIRETTO A SOCIETA\' IN HOUSE'),
+        array('25','25-AFFIDAMENTO DIRETTO A SOCIETA\' RAGGRUPPATE/CONSORZIATE O CONTROLLATE NELLE CONCESSIONI E NEI PARTENARIATI'),
+        array('26','26-AFFIDAMENTO DIRETTO IN ADESIONE AD ACCORDO QUADRO/CONVENZIONE'),
+        array('27','27-CONFRONTO COMPETITIVO IN ADESIONE AD ACCORDO QUADRO/CONVENZIONE'),
+        array('28','28-PROCEDURA AI SENSI DEI REGOLAMENTI DEGLI ORGANI COSTITUZIONALI'),
+        array('29','29-PROCEDURA RISTRETTA SEMPLIFICATA'),
+        array('30','30-PROCEDURA DERIVANTE DA LEGGE REGIONALE'),
+        array('31','31-AFFIDAMENTO DIRETTO PER VARIANTE SUPERIORE AL 20% DELL\'IMPORTO CONTRATTUALE'),
+        array('32','32-AFFIDAMENTO RISERVATO'),
+        array('33','33-PROCEDURA NEGOZIATA PER AFFIDAMENTI SOTTO SOGLIA'),
+        array('34','34-PROCEDURA ART.16 COMMA 2-BIS DPR 380/2001 PER OPERE URBANIZZAZIONE A SCOMPUTO PRIMARIE SOTTO SOGLIA COMUNITARIA'),
+        array('35','35-PARTERNARIATO PER L’INNOVAZIONE'),
+        array('36','36-AFFIDAMENTO DIRETTO PER LAVORI, SERVIZI O FORNITURE SUPPLEMENTARI'),
+        array('37','37-PROCEDURA COMPETITIVA CON NEGOZIAZIONE'),
+        array('38','38-PROCEDURA DISCIPLINATA DA REGOLAMENTO INTERNO PER SETTORI SPECIALI'),
+    );
+    foreach ( $tipi_contraente as $tc ) {
+        if ( substr($input, 0, 2) == $tc[0] ) {
+            return $tc[1];
         }
     }
-    return $template;
+    return "Non definito";
 }
+function avcp_get_basexmlurl($year = 0) {
+    if(is_multisite()){
+        $upload_dir = wp_get_upload_dir();
+        if ( $year ) {
+            return $upload_dir["baseurl"] . '/avcp/' .$year.'.xml';
+        } else {
+            return  $upload_dir["baseurl"] . '/avcp/';
+        }
+    }else{
+        if ( $year ) {
+            return get_site_url() . '/avcp/' .$year.'.xml';
+        } else {
+            return get_site_url() . '/avcp/';
+        }
+    }
 
+}
+function avcp_get_basexmlpath($year = 0) {
+    if(is_multisite()){
+        $upload_dir = wp_get_upload_dir();
+        if ( $year ) {
+            return $upload_dir["basedir"] . '/avcp/' . $year . '.xml';
+        } else {
+            return $upload_dir["basedir"] . '/avcp/';
+        }
+    }else{
+        if ( $year ) {
+            return ABSPATH . 'avcp/' . $year . '.xml';
+        } else {
+            return ABSPATH . 'avcp/';
+        }
 
+    }
+}
 ?>

@@ -1,16 +1,16 @@
 ﻿=== ANAC XML Bandi di Gara ===
-Contributors: Milmor, webgrafia
+Contributors: Milmor
+Donate link: https://www.paypal.me/milesimarco
 Tags: anac, anticorruzione, avcp, autorita, vigilanza, lavori, pubblici, amministrazione, trasparente, legge, obblighi, marco, milesi, wpgov, pubblicazione
 Requires at least: 4.4
-Tested up to: 5.2
-Version: 6.7.2.1
+Tested up to: 5.3
+Version: 7.1.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Software per la gestione dei Bandi di Gara e generazione automatica del dataset XML per ANAC (ex AVCP -Legge 190/2012 Art 1.32).
 
-FORKED BY Marco Buttarini
 
 == Description ==
 
@@ -74,9 +74,26 @@ Puoi trovare la documentazione su [wpgov.it](https://wpgov.it/soluzioni/avcp-xml
 == Changelog ==
 > Questa è la lista completa di tutti gli aggiornamenti, test e correzioni. Ogni volta che una nuova versione viene rilasciata assicuratevi di aggiornare il prima possibile per usufruire delle ultime migliorie!
 
+= Versione 7.1.2 25.01.2020 =
+* Minor bugfix
 
-= Versione 6.7.1 =
-* Fix per ambienti multisite
+= Versione 7.1 13.01.2020 =
+* **LEGGERE NOTE VERSIONE 7**
+* Aggiunto supporto alle nuove modalità di affidamento della gara
+* Bugfix scelta contraente (si ringraziano Annalisa D. e Salvatore F. per il tempestivo feedback)
+
+= Versione 7 12.01.2020 =
+* Redesign completo pagina di validazione
+* Redesign e refactoring completo del metabox nella pagina di modifica della gara (ora diviso tra dettagli e somme liquidate)
+* Aggiunto supporto fino all'anno 2024, standardizzazione di codice e automatismi per supporto ad anni futuri
+* Parametrizzato sistema di get su url/path di ogni file xml per customizzazioni esterne
+* Rimossa verifica automatica per autogenerazione XML (utilizzare il centro di validazione nel menù del plugin)
+* Diversi miglioramenti e standardizzazione di codice
+* Riordinamento filtri e ottimizzazione cicli
+* Rimosso pannello **LOG** (integrato in validazione)
+
+= Versione 6.7.3 27.12.2019 =
+* Minor bugfix
 
 = Versione 6.7.2 =
 * Testato con WP 5.2

@@ -5,7 +5,7 @@ add_filter('the_content', function($content) {
 
     global $wp_query;
     $jobID = $wp_query->post->ID;
-    $prev = "";
+
     $prev .= '<br/>';
     $prev .= '<table>';
     $prev .= '<tr><td><acronym title="Codice Identificativo Gara">CIG:</acronym></td><td>' . get_post_meta(get_the_ID(), 'avcp_cig', true) . '</td></tr>';
@@ -27,7 +27,7 @@ add_filter('the_content', function($content) {
 
     $prev .= '<br/>' . get_option('avcp_codicefiscale_ente') . '</td></tr>';
     $prev .= '<tr><td>Oggetto del bando:</td><td>' . get_the_title(get_the_ID()) . '</td></tr>';
-    $prev .= '<tr><td>Procedura di scelta del contraente:</td><td>' . strtolower(substr(get_post_meta(get_the_ID(), 'avcp_contraente', true), 3)) . '</td></tr>';
+    $prev .= '<tr><td>Procedura di scelta del contraente:</td><td>' . strtolower(avcp_get_contraente(get_post_meta(get_the_ID(), 'avcp_contraente', true))) . '</td></tr>';
     $prev .= '<tr><td>Importo di aggiudicazione:</td><td>€ <strong>' .  get_post_meta(get_the_ID(), 'avcp_aggiudicazione', true) . '</strong></td></tr>';
 
     $d_inizio = get_post_meta(get_the_ID(), 'avcp_data_inizio', true);

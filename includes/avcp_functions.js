@@ -1,108 +1,11 @@
 jQuery(document).ready(function($){
 
-	document.getElementById("avcp_data_inizio").setAttribute("readonly", "true");
-	document.getElementById("avcp_data_fine").setAttribute("readonly", "true");
-	document.getElementById("avcp_cig").setAttribute("onkeyup", "validcig(this)");
-	
-	$('label[for=avcp_aggiudicazione]').parent().parent().parent().css('border-top','1px solid grey');
-	$('label[for=avcp_aggiudicazione]').parent().parent().parent().prepend('<center><small>Gli importi vanno inseriti nel formato 12345<strong>.</strong>67 o, in assenza di decimali, 12345<strong>.00</strong></small></center><br>');
-	$('label[for=avcp_aggiudicazione').parent().parent().css('float','left');
-	$('label[for=avcp_aggiudicazione').parent().parent().css('width','100%');
-
-	$('label[for=avcp_s_l_2013]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2014]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2015]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2016]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2017]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2018]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2019]').parent().parent().parent().css('float','left');
-	$('label[for=avcp_s_l_2020]').parent().parent().parent().css('float','left');
-
-	$('label[for=avcp_s_l_2013]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2014]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2015]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2016]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2017]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2018]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2019]').parent().parent().parent().css('width','50%');
-	$('label[for=avcp_s_l_2020]').parent().parent().parent().css('width','50%');
-
 	$('#annirif-tabs li').first().remove();
 	$('#annirif-tabs li').first().remove();
-	$('#areesettori-tabs li').first().remove();
-	$('#areesettori-tabs li').first().remove();
-	
-	document.getElementById("avcp_data_inizio").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_data_fine").setAttribute("onchange", "datespan()");
-
-	document.getElementById("avcp_s_l_2013").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2014").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2015").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2016").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2017").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2018").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2019").setAttribute("onchange", "datespan()");
-	document.getElementById("avcp_s_l_2019").setAttribute("onchange", "datespan()");
 });
-
-function datespan() {
-    var jdate1 = document.getElementById("avcp_data_inizio").value.slice(-4);
-    var jdate2 = document.getElementById("avcp_data_fine").value.slice(-4);
-
-    if (jdate1 != '' && jdate2 != '') { //Controlla se entrambe le date sono inserite
-			var counter_i = 0;
-			for ( counter_i = jdate1; counter_i < (jdate2*1+1); counter_i++) {
-				year_check(counter_i);
-			}
-	}
-	
-	if (document.getElementById("avcp_s_l_2013").value > 0) {
-		year_check('2013');
-	}
-	if (document.getElementById("avcp_s_l_2014").value > 0) {
-		year_check('2014');
-	}
-	if (document.getElementById("avcp_s_l_2015").value > 0) {
-		year_check('2015');
-	}
-	if (document.getElementById("avcp_s_l_2016").value > 0) {
-		year_check('2016');
-	}
-	if (document.getElementById("avcp_s_l_2017").value > 0) {
-		year_check('2017');
-	}
-	if (document.getElementById("avcp_s_l_2018").value > 0) {
-		year_check('2018');
-	}
-	if (document.getElementById("avcp_s_l_2019").value > 0) {
-		year_check('2019');
-	}
-	if (document.getElementById("avcp_s_l_2020").value > 0) {
-		year_check('2020');
-	}
-}
-
-function year_check(year) {
-    $("label:contains('" + year + "')").find("input").prop( "checked", true );
-}
-function year_uncheck(year) {
-    $("label:contains('" + year + "')").find("input").prop( "checked", false );
-}
-
-function validcig(f) {
-    f.value = f.value.replace(/[^A-Z0-9-\s]/ig,'');
-    if(f.value.length != '10'){
-        $('#avcp_cig').css( "background-color", "yellow" );
-    } else if (f.value != '0000000000') {
-        $('#avcp_cig').css( "background-color", "lime" );
-    } else {
-        $('#avcp_cig').css( "background-color", "white" );
-    }
-}
 
 function formatImporto(value, len) {
 
-    //    if (!/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value) )value=0;
     decSeparator = '.';
     curSeparator = '';
     if (value == ""){
@@ -169,50 +72,6 @@ function formattaimporto(id) {
     newval = formatImporto(jQuery(id).val(), 15);
     jQuery(id).val(newval);
 }
-
-jQuery(document).ready(function(){
-	if (jQuery('#avcp_s_l_2013').length > 0){
-        jQuery('#avcp_s_l_2013').change(function(){
-            formattaimporto('#avcp_s_l_2013');
-		});
-    }
-	if (jQuery('#avcp_s_l_2014').length > 0){
-        jQuery('#avcp_s_l_2014').change(function(){
-            formattaimporto('#avcp_s_l_2014');
-        });
-    }
-	if (jQuery('#avcp_s_l_2015').length > 0){
-        jQuery('#avcp_s_l_2015').change(function(){
-            formattaimporto('#avcp_s_l_2015');
-        });
-    }
-	if (jQuery('#avcp_s_l_2016').length > 0){
-        jQuery('#avcp_s_l_2016').change(function(){
-            formattaimporto('#avcp_s_l_2016');
-        });
-    }
-	if (jQuery('#avcp_s_l_2017').length > 0){
-        jQuery('#avcp_s_l_2017').change(function(){
-            formattaimporto('#avcp_s_l_2017');
-        });
-    }
-	if (jQuery('#avcp_s_l_2018').length > 0){
-        jQuery('#avcp_s_l_2018').change(function(){
-            formattaimporto('#avcp_s_l_2018');
-        });
-    }
-	if (jQuery('#avcp_s_l_2019').length > 0){
-        jQuery('#avcp_s_l_2019').change(function(){
-            formattaimporto('#avcp_s_l_2019');
-        });
-    }
-	if (jQuery('#avcp_s_l_2020').length > 0){
-        jQuery('#avcp_s_l_2020').change(function(){
-            formattaimporto('#avcp_s_l_2020');
-        });
-    }
-	
-})
 
 ((function( datepicker ) {
     datepicker.regional['it'] = {

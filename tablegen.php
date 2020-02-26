@@ -53,8 +53,6 @@
     endwhile;
     wp_reset_query();
 
-    $upload_dir   = wp_upload_dir();
-
     echo '</tbody>
 
     <tfoot>
@@ -64,7 +62,7 @@
             echo '<div style="float:right;">
                         Scarica in
 
-            <a href="' . $upload_dir['baseurl'] . '/avcp" target="_blank" title="File .xml"><button>XML</button></a>
+            <a href="' . get_site_url() . '/avcp" target="_blank" title="File .xml"><button>XML</button></a>
             <a download="' . get_bloginfo('name') . '-gare' . $anno . '.xls" href="#" onclick="return ExcellentExport.excel(this, \'gare\', \'Gare\');"><button>EXCEL</button></a>
             <a download="' . get_bloginfo('name') . '-gare' . $anno . '.csv" href="#" onclick="return ExcellentExport.csv(this, \'gare\');"><button>CSV</button></a>
             </div>';

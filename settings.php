@@ -41,13 +41,13 @@
         }
     }
 
-    // forzo la generazione della cartella, se no esiste
-    avcp_activate();
-
     //Qui inizia la sezione delle impostazioni
+    echo '<div style="padding:20px;box-shadow: 0 1px 3px rgba(0,0,0,0.2);background-color: #fff;">
+    <h1>ANAC XML Bandi di Gara</h1>
+    Software sviluppato da <a href="https://www.marcomilesi.com" title="Marco Milesi">Marco Milesi</a> nell\'ambito del progetto <a href="https://www.wpgov.it" title="WPGov.it">WPGov.it</a>
+    </div>';
 
-    echo '<center><h3>ANAC XML Bandi di Gara</h3></center>
-    <form method="post" name="options" target="_self">';
+    echo '<form method="post" name="options" target="_self">';
     settings_fields( 'avcp_options' );
 
     echo '<h4>IMPOSTAZIONI ENTE</h4>
@@ -133,7 +133,7 @@
         echo 'manage_options';
     } else { echo get_option('avcp_dataset_capability'); }
     echo '" class="regular-text">';
-    echo '<span class="description"> Inserire la capacità richiesta per la visualizzazione del menù "Dataset XML" e "Log"<br>(default "manage_options")</span></td>';
+    echo '<span class="description"> Inserire la capacità richiesta per la visualizzazione del menù "Dataset XML" (default "manage_options")</span></td>';
     echo '</tr>';
 
 

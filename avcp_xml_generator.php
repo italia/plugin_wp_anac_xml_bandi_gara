@@ -14,19 +14,25 @@ function creafilexml ($anno) {
     endwhile; else:
     endif;
 
-    $upload_dir   = wp_upload_dir();
-
     $XML_FILE .= '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
     $XML_FILE .= '
     <legge190:pubblicazione xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:legge190="legge190_1_0" xsi:schemaLocation="legge190_1_0 datasetAppaltiL190.xsd">
     <metadata>
     <titolo>Pubblicazione 1 legge 190</titolo>
-    <abstract>Pubblicazione 1 legge 190 rif. 2013 M - ' . $ng . ' gare - ' . $XML_data_completa_aggiornamento . ' - Generato con WPGov ANAC XML ' . get_option('avcp_version_number') . ' di Marco Milesi</abstract>
-    <dataPubbicazioneDataset>' . $anno . '-12-31</dataPubbicazioneDataset>
-    <entePubblicatore>' . $avcp_denominazione_ente . '</entePubblicatore>
+    <abstract>Pubblicazione 1 legge 190 rif. 2013 M - ' . $ng . ' gare - ' . $XML_data_completa_aggiornamento . ' - Generato con WPGov ANAC XML ' . get_option('avcp_version_number') . ' di Marco Milesi</abstract>';
+    
+    if ( $anno > 2018 ) {
+        $XML_FILE .= '
+        <dataPubblicazioneDataset>' . $anno . '-12-31</dataPubblicazioneDataset>';
+    } else {
+        $XML_FILE .= '
+        <dataPubbicazioneDataset>' . $anno . '-12-31</dataPubbicazioneDataset>';
+    }
+
+    $XML_FILE .= '<entePubblicatore>' . $avcp_denominazione_ente . '</entePubblicatore>
     <dataUltimoAggiornamentoDataset>' . $XML_data_aggiornamento . '</dataUltimoAggiornamentoDataset>
     <annoRiferimento>' . $XML_anno_riferimento . '</annoRiferimento>
-    <urlFile>' . $upload_dir['baseurl'] . '/avcp/' . $anno . '.xml' . '</urlFile>
+    <urlFile>' . site_url() . '/avcp/' . $anno . '.xml' . '</urlFile>
     <licenza>IODL</licenza>
     </metadata>
     <data>';
@@ -60,8 +66,63 @@ function creafilexml ($anno) {
       }
     }
     $XML_FILE .= '</denominazione></strutturaProponente>
-    <oggetto>' . get_the_title() . '</oggetto>
-    <sceltaContraente>' . $avcp_contraente . '</sceltaContraente>
+    <oggetto>' . get_the_title() . '</oggetto>';
+    
+    if ( $anno >= 2019 ) { // Sostituzioni
+        $tipi_contraente = array(
+            array(
+                '03-PROCEDURA NEGOZIATA PREVIA PUBBLICAZIONE DEL BANDO',
+                '03-PROCEDURA NEGOZIATA PREVIA PUBBLICAZIONE'
+            ),
+            array(
+                '04-PROCEDURA NEGOZIATA SENZA PREVIA PUBBLICAZIONE DEL BANDO',
+                '04-PROCEDURA NEGOZIATA SENZA PREVIA PUBBLICAZIONE'
+            ),
+            array(
+                '06-PROCEDURA NEGOZIATA SENZA PREVIA INDIZIONE DI GARA ART. 221 D.LGS. 163/2006',
+                '06-PROCEDURA NEGOZIATA SENZA PREVIA INDIZIONE DI GARA (SETTORI SPECIALI)'
+            ),
+            array(
+                '06-PROCEDURA NEGOZIATA SENZA PREVIA INDIZIONE DI  GARA ART. 221 D.LGS. 163/2006',
+                '06-PROCEDURA NEGOZIATA SENZA PREVIA INDIZIONE DI GARA (SETTORI SPECIALI)'
+            ),
+            array(
+                '17-AFFIDAMENTO DIRETTO EX ART. 5 DELLA LEGGE N.381/91',
+                '17-AFFIDAMENTO DIRETTO EX ART. 5 DELLA LEGGE 381/91'
+            ),
+            array(
+                '22-PROCEDURA NEGOZIATA DERIVANTE DA AVVISI CON CUI SI INDICE LA GARA',
+                '22-PROCEDURA NEGOZIATA CON PREVIA INDIZIONE DI GARA (SETTORI SPECIALI)'
+            ),
+            array(
+                '23-AFFIDAMENTO IN ECONOMIA - AFFIDAMENTO DIRETTO',
+                '23-AFFIDAMENTO DIRETTO'
+            ),
+            array(
+                '25-AFFIDAMENTO DIRETTO A SOCIETA\' RAGGRUPPATE/CONSORZIATE O CONTROLLATE NELLE CONCESSIONI DI LL.PP',
+                '25-AFFIDAMENTO DIRETTO A SOCIETA\' RAGGRUPPATE/CONSORZIATE O CONTROLLATE NELLE CONCESSIONI E NEI PARTENARIATI            '
+            ),
+
+            array( '29', '29-PROCEDURA RISTRETTA SEMPLIFICATA'),
+            array( '30', '30-PROCEDURA DERIVANTE DA LEGGE REGIONALE'),
+            array( '31', '31-AFFIDAMENTO DIRETTO PER VARIANTE SUPERIORE AL 20% DELL\'IMPORTO CONTRATTUALE'),
+            array( '32', '32-AFFIDAMENTO RISERVATO'),
+            array( '33', '33-PROCEDURA NEGOZIATA PER AFFIDAMENTI SOTTO SOGLIA'),
+            array( '34', '34-PROCEDURA ART.16 COMMA 2-BIS DPR 380/2001 PER OPERE URBANIZZAZIONE A SCOMPUTO PRIMARIE SOTTO SOGLIA COMUNITARIA'),
+            array( '35', '35-PARTERNARIATO PER L’INNOVAZIONE'),
+            array( '36', '36-AFFIDAMENTO DIRETTO PER LAVORI, SERVIZI O FORNITURE SUPPLEMENTARI'),
+            array( '37', '37-PROCEDURA COMPETITIVA CON NEGOZIAZIONE'),
+            array( '38', '38-PROCEDURA DISCIPLINATA DA REGOLAMENTO INTERNO PER SETTORI SPECIALI')
+        );
+        foreach ( $tipi_contraente as $tc ) {
+            if ( $avcp_contraente == $tc[0] ) {
+                $avcp_contraente = $tc[1];
+                break;
+            }
+        }
+    }
+
+    $XML_FILE .= '<sceltaContraente>' . $avcp_contraente . '</sceltaContraente>
     <partecipanti>';
     $queried_term = get_query_var($taxonomy);
     $terms = get_the_terms( $post->ID, 'ditte' );
@@ -140,10 +201,8 @@ function creafilexml ($anno) {
     $XML_FILE .= '</data>
     </legge190:pubblicazione>';
 
-    $upload_dir   = wp_upload_dir();
-
     // Open or create a file (this does it in the same dir as the script)
-    $XML_PATH = $upload_dir['basedir'] . '/avcp/' . $anno . '.xml';
+    $XML_PATH = avcp_get_basexmlpath( $anno );
     $my_file = fopen($XML_PATH, "w");
 
     // Write the string's contents into that file
@@ -153,7 +212,5 @@ function creafilexml ($anno) {
     fclose($my_file);
 
     anac_add_log('Fine generazione', 0);
-
-    avcp_valid_check();
 }
 ?>
