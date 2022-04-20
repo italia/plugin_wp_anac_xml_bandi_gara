@@ -1,5 +1,5 @@
 <?php
-    if (!(is_plugin_active( 'italia-anax-xml-bandi-gara/avcp.php' ))) { echo 'Plugin non installato!'; return;}
+    if (!(is_plugin_active( 'italia-anac-xml-bandi-gara/avcp.php' ))) { echo 'Plugin non installato!'; return;}
 
     if(isset($_POST['Submit'])) { //Salvataggio Impostazioni
         $get_avcp_denominazione_ente = $_POST["avcp_denominazione_ente_n"];
