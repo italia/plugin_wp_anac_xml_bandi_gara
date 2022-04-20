@@ -79,7 +79,7 @@ function avcp_v_dataset_load()
                                         $xsd_dir = '1_0';
                                         $xsd_ver = 'v 1.0';
                                     }
-                                    if ($xml->schemaValidate(ABSPATH  . '/wp-content/plugins/avcp/includes/XSD/'.$xsd_dir.'/datasetAppaltiL190.xsd')) {
+                                    if ($xml->schemaValidate(ABSPATH  . '/wp-content/plugins/italia-anax-xml-bandi-gara/includes/XSD/'.$xsd_dir.'/datasetAppaltiL190.xsd')) {
                                         echo '<span class="dashicons dashicons-yes" title="Corretto"></span>';
                                     } else {
                                         echo '<span class="dashicons dashicons-dismiss" title="Trovati errori"></span>';
@@ -144,29 +144,29 @@ function avcp_v_dataset_load()
                         $file = $dir . '/index.php';
                         $system_ok = true;
                         if(is_dir($dir)) {
-                            echo 'Presenza cartella /avcp<font style="color:green;font-weight:bold;"> ==> OK</font>';
+                            echo 'Presenza cartella /italia-anax-xml-bandi-gara<font style="color:green;font-weight:bold;"> ==> OK</font>';
                         } else {
-                            echo 'Presenza cartella /avcp<font style="color:red;font-weight:bold;"> ==> NON TROVATA</font>';
+                            echo 'Presenza cartella /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> NON TROVATA</font>';
                             $system_ok = false;
                         }
                         echo '<br/>';
                         if (is_writeable($dir)) {
-                            echo 'Permessi scrittura cartella /avcp<font style="color:green;font-weight:bold;"> ==> OK</font>';
+                            echo 'Permessi scrittura cartella /italia-anax-xml-bandi-gara<font style="color:green;font-weight:bold;"> ==> OK</font>';
                         } else {
-                            echo 'Permessi scrittura cartella /avcp<font style="color:red;font-weight:bold;"> ==> NON CORRISPONDENTI</font>';
+                            echo 'Permessi scrittura cartella /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> NON CORRISPONDENTI</font>';
                             $system_ok = false;
                         }
                         echo '<br/>';
                     
                         if (file_exists($file)) {
-                            echo 'Presenza index.php /avcp<font style="color:green;font-weight:bold;"> ==> OK</font>';
+                            echo 'Presenza index.php /italia-anax-xml-bandi-gara<font style="color:green;font-weight:bold;"> ==> OK</font>';
                         } else {
-                            echo 'Presenza index.php /avcp<font style="color:red;font-weight:bold;"> ==> NON TROVATO</font>';
+                            echo 'Presenza index.php /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> NON TROVATO</font>';
                             $system_ok = false;
                         }
                         echo '<br/>';
                     
-                        $urlcheck = get_site_url() . '/avcp/index.php';
+                        $urlcheck = get_site_url() . '/italia-anax-xml-bandi-gara/index.php';
                     
                         $agent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; pt-pt) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27";
                     
@@ -198,20 +198,20 @@ function avcp_v_dataset_load()
                              curl_close($ch);
                     
                             if($httpcode==200) {
-                                echo 'Test Accesso pubblico /avcp<font style="color:green;font-weight:bold;"> ==> OK [200]</font>';
+                                echo 'Test Accesso pubblico /italia-anax-xml-bandi-gara<font style="color:green;font-weight:bold;"> ==> OK [200]</font>';
                             } else if($httpcode==500) {
-                                echo 'Test Accesso pubblico /avcp<font style="color:red;font-weight:bold;"> ==> ERRORE 500 ISE</font>';
+                                echo 'Test Accesso pubblico /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> ERRORE 500 ISE</font>';
                                 $headers = get_headers($urlcheck);
                                 echo ' - ' . $headers[0];
                                 $system_ok = false;
                             } else {
-                                echo 'Test Accesso pubblico /avcp<font style="color:red;font-weight:bold;"> ==> ERRORE ' . $httpcode . '</font>';
+                                echo 'Test Accesso pubblico /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> ERRORE ' . $httpcode . '</font>';
                                 $headers = get_headers($urlcheck);
                                 echo ' - ' . $headers[0];
                                 $system_ok = false;
                             }
                         } else {
-                            echo 'Test Accesso pubblico /avcp<font style="color:red;font-weight:bold;"> ==> CURL_INIT MANCANTE</font>';
+                            echo 'Test Accesso pubblico /italia-anax-xml-bandi-gara<font style="color:red;font-weight:bold;"> ==> CURL_INIT MANCANTE</font>';
                             $system_ok = false;
                         }
                     

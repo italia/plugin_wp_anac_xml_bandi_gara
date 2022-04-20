@@ -25,7 +25,7 @@ function avcp_plugin_meta_links( $links, $file ) {
 	if ( $file == $plugin ) {
 		return array_merge(
 			$links,
-			array( '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2JK36SCXKTE2">Donazione</a>' )
+			array( ' ' )
 		);
 	}
 	return $links;

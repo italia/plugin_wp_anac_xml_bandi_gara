@@ -1,6 +1,5 @@
 ﻿=== ANAC XML Bandi di Gara ===
 Contributors: Milmor
-Donate link: https://www.paypal.me/milesimarco
 Tags: anac, anticorruzione, avcp, autorita, vigilanza, lavori, pubblici, amministrazione, trasparente, legge, obblighi, marco, milesi, wpgov, pubblicazione
 Requires at least: 4.4
 Tested up to: 5.3
@@ -67,7 +66,7 @@ Puoi trovare la documentazione su [wpgov.it](https://wpgov.it/soluzioni/avcp-xml
 2. Inserimento guidato delle informazioni
 3. Semplici e intuitive impostazioni
 4. Menù del plugin
-5. Esempio pagina /avcp contenente i file .xml generati
+5. Esempio pagina /italia-anax-xml-bandi-gara contenente i file .xml generati
 6. Tabella generata con lo shortcode [avcp] configurabile per anno
 7. Esempio visualizzazione singola del bando cliccando sulle voci della tabella
 
@@ -333,7 +332,7 @@ Puoi trovare la documentazione su [wpgov.it](https://wpgov.it/soluzioni/avcp-xml
 
 = Versione 1.0.2 10/12/2013 =
 * Migliore stile per System Check-up
-* Forzato CHMOD del file /avcp/index.php - 0755
+* Forzato CHMOD del file /italia-anax-xml-bandi-gara/index.php - 0755
 * Aggiunto parametro di controllo al System Check-up
 
 = Versione 1.0.1 9/12/2013 =

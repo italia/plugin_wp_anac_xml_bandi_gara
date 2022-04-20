@@ -264,10 +264,10 @@ add_action('admin_enqueue_scripts', function( $hook ) {
 
     global $post;
     if ( ('post-new.php' == $hook || 'post.php' == $hook) && 'avcp' === $post->post_type ) {
-		wp_register_style( 'avcp_style',  plugins_url('avcp/includes/avcp_admin.css') );
+		wp_register_style( 'avcp_style',  plugins_url('italia-anax-xml-bandi-gara/includes/avcp_admin.css') );
         wp_enqueue_style( 'avcp_style');
 
-        wp_enqueue_script( 'avcp_functions', plugins_url('avcp/includes/avcp_functions.js'), array( 'jquery' ) );
+        wp_enqueue_script( 'avcp_functions', plugins_url('italia-anax-xml-bandi-gara/includes/avcp_functions.js'), array( 'jquery' ) );
 
 
         wp_register_script('avcp_searchTaxonomyGT_at_js', plugins_url('includes/searchTaxonomyGT.js', __FILE__));
@@ -333,7 +333,7 @@ add_action('admin_menu', function() {
 
 //avcp_activate();
 function avcp_activate() {
-    $srcfile= ABSPATH . 'wp-content/plugins/avcp/includes/index.php.null';
+    $srcfile= ABSPATH . 'wp-content/plugins/italia-anax-xml-bandi-gara/includes/index.php.null';
     $dstfile= avcp_get_basexmlpath() . 'index.php';
     mkdir(dirname($dstfile), 0755, true);
     copy($srcfile, $dstfile);
@@ -341,7 +341,7 @@ function avcp_activate() {
 }
 
 function avcp_deactivate() {
-    unlink(ABSPATH . 'avcp/index.php');
+    unlink(ABSPATH . 'italia-anax-xml-bandi-gara/index.php');
 }
 register_deactivation_hook( __FILE__, 'avcp_deactivate' );
 
@@ -388,15 +388,15 @@ function avcp_get_basexmlurl($year = 0) {
     if(is_multisite()){
         $upload_dir = wp_get_upload_dir();
         if ( $year ) {
-            return $upload_dir["baseurl"] . '/avcp/' .$year.'.xml';
+            return $upload_dir["baseurl"] . '/italia-anax-xml-bandi-gara/' .$year.'.xml';
         } else {
-            return  $upload_dir["baseurl"] . '/avcp/';
+            return  $upload_dir["baseurl"] . '/italia-anax-xml-bandi-gara/';
         }
     }else{
         if ( $year ) {
-            return get_site_url() . '/avcp/' .$year.'.xml';
+            return get_site_url() . '/italia-anax-xml-bandi-gara/' .$year.'.xml';
         } else {
-            return get_site_url() . '/avcp/';
+            return get_site_url() . '/italia-anax-xml-bandi-gara/';
         }
     }
 
@@ -405,15 +405,15 @@ function avcp_get_basexmlpath($year = 0) {
     if(is_multisite()){
         $upload_dir = wp_get_upload_dir();
         if ( $year ) {
-            return $upload_dir["basedir"] . '/avcp/' . $year . '.xml';
+            return $upload_dir["basedir"] . '/italia-anax-xml-bandi-gara/' . $year . '.xml';
         } else {
-            return $upload_dir["basedir"] . '/avcp/';
+            return $upload_dir["basedir"] . '/italia-anax-xml-bandi-gara/';
         }
     }else{
         if ( $year ) {
-            return ABSPATH . 'avcp/' . $year . '.xml';
+            return ABSPATH . 'italia-anax-xml-bandi-gara/' . $year . '.xml';
         } else {
-            return ABSPATH . 'avcp/';
+            return ABSPATH . 'italia-anax-xml-bandi-gara/';
         }
 
     }

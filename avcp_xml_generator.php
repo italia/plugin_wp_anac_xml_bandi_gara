@@ -32,7 +32,7 @@ function creafilexml ($anno) {
     $XML_FILE .= '<entePubblicatore>' . $avcp_denominazione_ente . '</entePubblicatore>
     <dataUltimoAggiornamentoDataset>' . $XML_data_aggiornamento . '</dataUltimoAggiornamentoDataset>
     <annoRiferimento>' . $XML_anno_riferimento . '</annoRiferimento>
-    <urlFile>' . site_url() . '/avcp/' . $anno . '.xml' . '</urlFile>
+    <urlFile>' . site_url() . '/italia-anax-xml-bandi-gara/' . $anno . '.xml' . '</urlFile>
     <licenza>IODL</licenza>
     </metadata>
     <data>';
