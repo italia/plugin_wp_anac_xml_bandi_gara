@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Italia - ANAC XML Bandi di Gara
-Plugin URI: https://wordpress.org/plugins/avcp
+Plugin URI: https://github.com/italia/plugin_wp_anac_xml_bandi_gara
 Description: Generatore XML per ANAC (ex AVCP) e gestione bandi di gara e contratti (Legge 190/2012 art. 1.32 & D.Lgs 33/2013)
-Author: Marco Milesi forked by MITD
+Author: Questa versione è derivata da un fork del repository originale
 Version: 7.1.2
 Author URI: https://www.marcomilesi.com
 */
